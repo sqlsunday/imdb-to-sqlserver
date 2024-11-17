@@ -67,8 +67,10 @@ foreach($file in $files) {
 
             # Parse the line and insert it into SQL Server table
             if ($rowNumber -gt 0) {
-                $cmd.CommandText = "INSERT INTO [Raw].["+$file.Name+"] VALUES ("+(("N'"+($line -replace("'", "''"))+"'") -replace("`t", "', N'") -replace("N'\\N'", "NULL"))+");"
-                $cmd.ExecuteNonQuery() | Out-Null
+                if ($line -replace("\\N", "") -replace("`t", "") -ne "") {
+                    $cmd.CommandText = "INSERT INTO [Raw].["+$file.Name+"] VALUES ("+(("N'"+($line -replace("'", "''"))+"'") -replace("`t", "', N'") -replace("N'\\N'", "NULL"))+");"
+                    $cmd.ExecuteNonQuery() | Out-Null
+                }
             }
 
             $rowNumber=$rowNumber+1
