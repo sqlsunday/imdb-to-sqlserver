@@ -33,7 +33,7 @@ CREATE TABLE [Raw].[title.basics.tsv.gz] (
     originalTitle    nvarchar(1000), -- original title, in the original language
     isAdult    bit, -- 0: non-adult title; 1: adult title
     startYear    numeric(4, 0), -- represents the release year of a title. In the case of TV Series, it is the series start year
-    endYear    numeric(4, 0), -- TV Series end year. ‘\N’ for all other title types
+    endYear    numeric(4, 0), -- TV Series end year. â€˜\Nâ€™ for all other title types
     runtimeMinutes int, -- primary runtime of the title, in minutes
     genres    nvarchar(100), -- includes up to three genres associated with the title
     CONSTRAINT [PK_title.basics.tsv.gz] PRIMARY KEY CLUSTERED (titleId) WITH (DATA_COMPRESSION=PAGE)
@@ -61,7 +61,7 @@ CREATE TABLE [Raw].[title.principals.tsv.gz] (
     ordering    bigint, -- a number to uniquely identify rows for a given titleId
     nameId    varchar(20), -- alphanumeric unique identifier of the name/person
     category    nvarchar(255), -- the category of job that person was in
-    job    nvarchar(255), -- the specific job title if applicable, else '\N'
+    job    nvarchar(512), -- the specific job title if applicable, else '\N'
     characters    nvarchar(max), -- the name of the character played if applicable, else '\N'
 ) WITH (DATA_COMPRESSION=PAGE);
 
